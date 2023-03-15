@@ -135,3 +135,53 @@ def Action_set(move,x,y,cost):
 #     cv2.imshow('work_space',work_space)
 #     cv2.waitKey(0)
 
+def obstacle_space():
+
+        # CLEARANCE FOR
+
+        # Rectangles
+        cv2.rectangle(work_space,(95,0),(155,105),0,-1)
+        cv2.rectangle(work_space,(94,145),(155,250),0,-1)
+
+        # Hexagon
+        hex_centre = (300, 125)
+        hex_side = 80
+        x_cd = hex_centre[0] + hex_side*np.array([1, np.cos(np.pi/3), -np.cos(np.pi/3), -1, -np.cos(np.pi/3), np.cos(np.pi/3)])
+        y_cd = hex_centre[1] + hex_side*np.array([0, np.sin(np.pi/3), np.sin(np.pi/3), 0, -np.sin(np.pi/3), -np.sin(np.pi/3)])
+        hex_p1= np.array([(x, y) for x, y in zip(x_cd, y_cd)], np.int32)
+        pts = hex_p1.reshape((-1,1,2))
+        cv2.polylines(work_space, [hex_p1], True, (0, 255, 0), thickness=1)
+        cv2.fillPoly(work_space, [hex_p1], color=(0, 0, 0))
+
+        # Triangle
+        pts2= np.array([[405,10], [405, 240], [465, 125]], np.int32)
+        cv2.polylines(work_space, [pts2], True, (0,255,0), thickness=1)
+        cv2.fillPoly(work_space, [pts2], color=(0, 0, 0))
+        cv2.imshow('work_space',work_space)
+        cv2.waitKey(0)
+
+        # OBSTACLES FOR
+        # Rectangles
+        cv2.rectangle(work_space,(100,0),(150,100),(127,127,127),-1)
+        cv2.rectangle(work_space,(100,150),(150,250),(127,127,127),-1)
+
+        # Hexagon
+        # hex_pts = np.array([[235.05, 87.5], [300, 68.09], [364.95, 87.5], [364.95, 162.5], [300, 181.91], [235.05, 1662.5]])
+        # cv2.fillPoly(work_space, [hex_pts], True, (0, 255, 0), thickness=1)
+        hex_centre = (300, 125)
+        hex_side = 75
+        x_cd = hex_centre[0] + hex_side*np.array([1, np.cos(np.pi/3), -np.cos(np.pi/3), -1, -np.cos(np.pi/3), np.cos(np.pi/3)])
+        y_cd = hex_centre[1] + hex_side*np.array([0, np.sin(np.pi/3), np.sin(np.pi/3), 0, -np.sin(np.pi/3), -np.sin(np.pi/3)])
+        pts3= np.array([(x, y) for x, y in zip(x_cd, y_cd)], np.int32)
+        pts3 = pts3.reshape((-1,1,2))
+        cv2.fillPoly(work_space, [pts3], (127, 127, 127))
+
+
+        # Triangle
+        pts4 = np.array([[410, 25], [410, 225], [460, 125]], np.int32)
+        cv2.polylines(work_space, [pts4], isClosed=True,color=(0,0,0), thickness=1)
+        cv2.fillPoly(work_space, [pts4], (127, 127, 127))
+
+        cv2.imshow('work_space',work_space)
+        cv2.waitKey(0)
+
