@@ -185,3 +185,65 @@ def obstacle_space():
         cv2.imshow('work_space',work_space)
         cv2.waitKey(0)
 
+# Generate the pathe
+def generate_path(F_Dic,node):
+    path=[]
+    path.append(node)
+    P_nd=F_Dic[node]
+    while P_nd is not None and P_nd != St_n:
+        path.append(P_nd)
+        P_nd=F_Dic[P_nd]
+    path.append(St_n)
+    path.reverse()
+    return path
+
+# Dijkstra 
+def dijkstra(St_n,Gl_n):
+
+    obstacle_space()
+    F_Dic={}
+    IN_Lst=[]
+    FN_Lst=set()
+    crossed=set() 
+
+    heapq.heappush(IN_Lst,(0,St_n))
+   
+    while IN_Lst:
+        cost,node=heapq.heappop(IN_Lst)
+       
+        if node not in crossed:
+            crossed.add(node)
+        FN_Lst.add(node)
+        if not poss_nd(node[0],node[1]):
+            continue
+
+        if node[1] == Gl_n[0] and node[0]==Gl_n[1]:
+            print('total cost',cost)
+            return generate_path(F_Dic,node),F_Dic
+
+        for action in ['UP','DOWN','RIGHT','LEFT','UP_RIGHT','UP_LEFT','DOWN_RIGHT','DOWN_LEFT']:
+            nodes_1,c2c=action(node[0],node[1],cost) 
+            # print(nodes_1,'nn',action)
+            if nodes_1 not in FN_Lst and nodes_1 is not None:
+                if nodes_1 not in crossed:
+                    heapq.heappush(IN_Lst,(c2c,nodes_1))
+                    crossed.add(nodes_1)
+                    F_Dic.update({nodes_1:node})
+                else:
+                    # print("repeated")
+                    for i in range(len(IN_Lst)):
+                        if IN_Lst[i][1]==nodes_1:
+                            if IN_Lst[i][0]>c2c:
+                                IN_Lst[i]=(c2c,nodes_1)
+                                F_Dic.update({nodes_1:node})
+    
+def show_ws(F_Dic):
+    for i in F_Dic.keys():
+        cv2.circle(work_space,(i[1],250-i[0]),1,(79,79,79),-1)
+        cv2.imshow('work_space',work_space)
+        cv2.waitKey(1)
+
+    for i in range(len(path)):
+        cv2.circle(work_space,(path[i][1],250-path[i][0]),1,(255,255,255),-1)
+        cv2.imshow('work_space',work_space)
+        cv2.waitKey(1)
