@@ -90,3 +90,48 @@ def Action_set(move,x,y,cost):
 		return move_down_left(x,y,cost)
 	else:
 		return None
+	# # Defining obstacle with clearance for point bot
+# def totalobstacle():
+    
+#     # Hexagon
+#     center = (300, 125)
+#     side_length = 80
+#     x_coords = center[0] + side_length*np.array([1, np.cos(np.pi/3), -np.cos(np.pi/3), -1, -np.cos(np.pi/3), np.cos(np.pi/3)])
+#     y_coords = center[1] + side_length*np.array([0, np.sin(np.pi/3), np.sin(np.pi/3), 0, -np.sin(np.pi/3), -np.sin(np.pi/3)])
+#     pts1= np.array([(x, y) for x, y in zip(x_coords, y_coords)], np.int32)
+#     pts = pts1.reshape((-1,1,2))
+#     cv2.polylines(work_space, [pts1], True, (0, 255, 0), thickness=1)
+#     cv2.fillPoly(work_space, [pts1], color=(0, 0, 0))
+
+#     # Rectangles
+#     cv2.rectangle(work_space,(95,0),(155,105),0,-1)
+#     cv2.rectangle(work_space,(94,145),(155,250),0,-1)
+#     # Triangle
+#     pts2= np.array([[405,10], [405, 240], [465, 125]], np.int32)
+#     cv2.polylines(work_space, [pts2], True, (0,255,0), thickness=1)
+#     cv2.fillPoly(work_space, [pts2], color=(0, 0, 0))
+#     cv2.imshow('work_space',work_space)
+#     cv2.waitKey(0)
+
+# # Defining actualobstacle
+# def actualobstacle():
+
+#     # Hexagon
+#     center = (300, 125)
+#     side_length = 75
+#     x_coords = center[0] + side_length*np.array([1, np.cos(np.pi/3), -np.cos(np.pi/3), -1, -np.cos(np.pi/3), np.cos(np.pi/3)])
+#     y_coords = center[1] + side_length*np.array([0, np.sin(np.pi/3), np.sin(np.pi/3), 0, -np.sin(np.pi/3), -np.sin(np.pi/3)])
+#     pts3= np.array([(x, y) for x, y in zip(x_coords, y_coords)], np.int32)
+#     pts3 = pts3.reshape((-1,1,2))
+#     cv2.fillPoly(work_space, [pts3], (127, 127, 127))
+#     # Rectangles
+#     cv2.rectangle(work_space,(100,0),(150,100),(127,127,127),-1)
+#     cv2.rectangle(work_space,(100,150),(150,250),(127,127,127),-1)
+#     # Triangle
+#     pts4 = np.array([[410, 25], [410, 225], [460, 125]], np.int32)
+#     cv2.polylines(work_space, [pts4], isClosed=True,color=(0,0,0), thickness=1)
+#     cv2.fillPoly(work_space, [pts4], (127, 127, 127))
+
+#     cv2.imshow('work_space',work_space)
+#     cv2.waitKey(0)
+
