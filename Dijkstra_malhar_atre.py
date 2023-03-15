@@ -247,3 +247,40 @@ def show_ws(F_Dic):
         cv2.circle(work_space,(path[i][1],250-path[i][0]),1,(255,255,255),-1)
         cv2.imshow('work_space',work_space)
         cv2.waitKey(1)
+def Backtrack(goal_node):  
+    print ("Entered backtracking")
+    x_path = []
+    y_path = []
+    x_path.append(goal_node.x)
+    y_path.append(goal_node.y)
+
+    P_nd = goal_node.parent_id
+    while P_nd != -1:
+        x_path.append(P_nd.x)
+        y_path.append(P_nd.y)
+        P_nd = P_nd.parent_id
+        
+    x_path.reverse()
+    y_path.reverse()
+    
+    return x_path,y_path
+    
+                        
+def poss_nd(ST_x,ST_y):
+    i=ST_x
+    j=ST_y
+    if work_space[i][j]==255:
+        return True
+    else:
+        return False
+
+print(work_space.shape)
+path,F_Dic=dijkstra(St_n,Gl_n)
+print(path)
+show_ws(F_Dic)
+cv2.imshow('work_space',work_space)
+
+timer_stop = time.time()
+comp_time = timer_stop - timer
+print("The Total Runtime is:  ", comp_time) 
+print('Time: ',comp_time)
